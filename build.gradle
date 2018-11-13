@@ -13,4 +13,6 @@ repositories {
 
 dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.6'
+    compile 'org.jsoup:jsoup:1.11.3'
 }
