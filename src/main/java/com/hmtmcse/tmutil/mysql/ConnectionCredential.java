@@ -6,7 +6,7 @@ public class ConnectionCredential {
     public String username = "root";
     public String password = "";
     public String databaseName;
-    private String driverPackage = "com.mysql.jdbc.Driver";
+    private String driverPackage = "com.mysql.cj.jdbc.Driver";
 
     public String getHostname() {
         return hostname;
