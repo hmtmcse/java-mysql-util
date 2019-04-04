@@ -4,6 +4,7 @@ import com.hmtmcse.tmutil.mysql.ConnectionCredential;
 import com.hmtmcse.tmutil.mysql.JMQuery;
 import com.hmtmcse.tmutil.mysql.JavaMySQLException;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +78,21 @@ public class MySQLSchemaManager extends JMQuery {
             throw new JavaMySQLException(e.getMessage());
         }
         return schemaConstraintDataList;
+    }
+
+    public List<SchemaColumnData> getSchemaColumnList(ResultSet resultSet) throws JavaMySQLException {
+        List<SchemaColumnData> schemaColumnDataList = new ArrayList<>();
+        try {
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            int numberOfColumns = resultSetMetaData.getColumnCount();
+            for (int i = 1; i < numberOfColumns + 1; i++) {
+                String columnName = resultSetMetaData.getColumnName(i);
+            }
+        } catch (SQLException e) {
+            throw new JavaMySQLException(e.getMessage());
+        }
+
+        return schemaColumnDataList;
     }
 
 
