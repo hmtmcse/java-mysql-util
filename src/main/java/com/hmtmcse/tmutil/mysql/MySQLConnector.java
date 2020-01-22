@@ -23,6 +23,12 @@ public class MySQLConnector {
         credential.password = password;
     }
 
+    public MySQLConnector(String username, String password){
+        credential = new ConnectionCredential();
+        credential.username = username;
+        credential.password = password;
+    }
+
     public MySQLConnector (String host, String username, String password, String databaseName){
         credential = new ConnectionCredential();
         credential.databaseName = databaseName;

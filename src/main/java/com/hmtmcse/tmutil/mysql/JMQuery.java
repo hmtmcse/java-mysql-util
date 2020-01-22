@@ -10,6 +10,10 @@ public class JMQuery extends MySQLConnector{
         super(databaseName);
     }
 
+    public JMQuery(String username, String password) {
+        super(username, password);
+    }
+
     public JMQuery(String username, String password, String databaseName) {
         super(username, password, databaseName);
     }
