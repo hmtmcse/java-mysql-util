@@ -37,6 +37,11 @@ public class MySQLConnector {
         credential.password = password;
     }
 
+    public MySQLConnector setConnectionUrl(String connectionUrl) {
+        credential.setConnectionString(connectionUrl);
+        return this;
+    }
+
     public MySQLConnector (ConnectionCredential credential){
         this.credential = credential;
     }
