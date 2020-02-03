@@ -21,7 +21,7 @@ public class MySQLAdmin {
     }
 
     public Boolean dropDatabase(String databaseName) throws JavaMySQLException {
-        String sql = "DROP DATABASE IF EXISTS" + databaseName + ";";
+        String sql = "DROP DATABASE IF EXISTS " + databaseName + ";";
         execute(sql);
         return true;
     }
