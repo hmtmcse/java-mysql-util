@@ -47,6 +47,10 @@ public class MySQLConnector {
     }
 
 
+    public ConnectionCredential getCredential() {
+        return this.credential;
+    }
+
 
     private Statement open() throws JavaMySQLException {
         try {
