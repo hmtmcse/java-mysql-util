@@ -37,7 +37,7 @@ public class MySQLAdmin {
     }
 
     public List<LinkedHashMap<String, String>> getAllUsers() throws JavaMySQLException {
-        String sql = "SELECT User,Host FROM mysql.user;";
+        String sql = "SELECT User, Host FROM mysql.user;";
         List<LinkedHashMap<String, String>> list = new ArrayList<>();
         ResultSet resultSet = query(sql);
         LinkedHashMap<String, String> map;
