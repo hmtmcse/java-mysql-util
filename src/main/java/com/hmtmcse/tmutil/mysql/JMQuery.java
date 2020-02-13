@@ -34,9 +34,9 @@ public class JMQuery extends MySQLConnector{
         }
     }
 
-    public void createUpdateSQL(String sql) throws JavaMySQLException {
+    public int createUpdateSQL(String sql) throws JavaMySQLException {
         try {
-             start().executeUpdate(sql);
+            return start().executeUpdate(sql);
         } catch (SQLException e) {
             throw new JavaMySQLException(e.getMessage());
         }
