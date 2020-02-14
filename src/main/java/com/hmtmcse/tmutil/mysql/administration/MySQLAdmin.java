@@ -2,6 +2,9 @@ package com.hmtmcse.tmutil.mysql.administration;
 
 import com.hmtmcse.tmutil.mysql.JavaMySQLException;
 import com.hmtmcse.tmutil.mysql.MySQLConnector;
+import com.hmtmcse.tmutil.mysql.administration.data.MySQLTableConstraintData;
+import com.hmtmcse.tmutil.mysql.administration.data.MySQLTableData;
+import com.hmtmcse.tmutil.mysql.administration.data.MySQLTableSchemaData;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -114,5 +117,62 @@ public class MySQLAdmin {
         }
     }
 
+    public List<MySQLTableData> getAllTableName(String database) throws JavaMySQLException {
+        String SHOW_TABLES = "SELECT TABLE_NAME,ENGINE,TABLE_COLLATION FROM information_schema.TABLES WHERE TABLE_SCHEMA =";
+        String sql = SHOW_TABLES + "'" + database + "'";
+        ResultSet resultSet = query(sql);
+        List<MySQLTableData> tables = new ArrayList<>();
+        MySQLTableData tableData;
+        try {
+            while (resultSet.next()) {
+                tableData = new MySQLTableData();
+                tableData.tableName = resultSet.getString("TABLE_NAME");
+                tableData.tableEngine = resultSet.getString("ENGINE");
+                tableData.tableCollation = resultSet.getString("TABLE_COLLATION");
+                tables.add(tableData);
+            }
+        } catch (SQLException e) {
+            throw new JavaMySQLException(e.getMessage());
+        }
+        return tables;
+    }
+
+    public List<MySQLTableConstraintData> getTableConstraint(String database, String table) throws JavaMySQLException {
+        String TABLE_CONSTRAINT = "SELECT TABLE_NAME,COLUMN_NAME,CONSTRAINT_NAME,REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = '%s' AND TABLE_NAME = '%s' AND referenced_column_name IS NOT NULL";
+        String sql = String.format(TABLE_CONSTRAINT, database, table);
+        ResultSet resultSet = query(sql);
+        List<MySQLTableConstraintData> constraints = new ArrayList<>();
+        MySQLTableConstraintData tableConstraint;
+        try {
+            while (resultSet.next()) {
+                tableConstraint = new MySQLTableConstraintData();
+                tableConstraint.tableName = resultSet.getString("TABLE_NAME");
+                tableConstraint.columnName = resultSet.getString("COLUMN_NAME");
+                tableConstraint.constraintName = resultSet.getString("CONSTRAINT_NAME");
+                tableConstraint.referencedTableName = resultSet.getString("REFERENCED_COLUMN_NAME");
+                tableConstraint.referencedColumnName = resultSet.getString("REFERENCED_TABLE_NAME");
+                constraints.add(tableConstraint);
+            }
+        } catch (SQLException e) {
+            throw new JavaMySQLException(e.getMessage());
+        }
+        return constraints;
+    }
+
+
+    public MySQLTableSchemaData tableCreateSchema(String database, String table) throws JavaMySQLException {
+        String SHOW_CREATE_TABLE = "SHOW CREATE TABLE ";
+        String sql = SHOW_CREATE_TABLE + database + "." + table + ";";
+        ResultSet resultSet = query(sql);
+        MySQLTableSchemaData tableSchemaData = new MySQLTableSchemaData();
+        try {
+            resultSet.next();
+            tableSchemaData.tableSchema = resultSet.getString("Create Table");
+            tableSchemaData.table = resultSet.getString("Table");
+        } catch (SQLException e) {
+            throw new JavaMySQLException(e.getMessage());
+        }
+        return tableSchemaData;
+    }
 
 }
