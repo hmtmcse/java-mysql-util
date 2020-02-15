@@ -168,6 +168,7 @@ public class MySQLAdmin {
         try {
             resultSet.next();
             tableSchemaData.tableSchema = resultSet.getString("Create Table");
+            tableSchemaData.tableSchema = tableSchemaData.tableSchema.replace("CREATE TABLE", "CREATE TABLE IF NOT EXISTS");
             tableSchemaData.table = resultSet.getString("Table");
         } catch (SQLException e) {
             throw new JavaMySQLException(e.getMessage());
