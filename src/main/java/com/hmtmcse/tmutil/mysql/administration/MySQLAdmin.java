@@ -149,8 +149,8 @@ public class MySQLAdmin {
                 tableConstraint.tableName = resultSet.getString("TABLE_NAME");
                 tableConstraint.columnName = resultSet.getString("COLUMN_NAME");
                 tableConstraint.constraintName = resultSet.getString("CONSTRAINT_NAME");
-                tableConstraint.referencedTableName = resultSet.getString("REFERENCED_COLUMN_NAME");
-                tableConstraint.referencedColumnName = resultSet.getString("REFERENCED_TABLE_NAME");
+                tableConstraint.referencedTableName = resultSet.getString("REFERENCED_TABLE_NAME");
+                tableConstraint.referencedColumnName = resultSet.getString("REFERENCED_COLUMN_NAME");
                 constraints.add(tableConstraint);
             }
         } catch (SQLException e) {
