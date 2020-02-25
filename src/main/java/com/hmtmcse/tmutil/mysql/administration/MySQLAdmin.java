@@ -85,6 +85,7 @@ public class MySQLAdmin {
     public Boolean grantAllAccess(String username, String password, String host, String databaseName) throws JavaMySQLException {
         String sql = "GRANT ALL ON " + databaseName + ".* TO '" + username + "'@'" + host + "' IDENTIFIED BY '" + password + "';";
         execute(sql);
+        execute("FLUSH PRIVILEGES;");
         return true;
     }
 
