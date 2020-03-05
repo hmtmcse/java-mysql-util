@@ -28,6 +28,9 @@ public class JMQuery extends MySQLConnector{
 
     public ResultSet selectSQL(String sql) throws JavaMySQLException {
         try {
+            if (sql == null || sql.equals("")) {
+                throw new JavaMySQLException("Null or Empty SQL");
+            }
             return start().executeQuery(sql);
         } catch (SQLException e) {
             throw new JavaMySQLException(e.getMessage());
@@ -36,6 +39,9 @@ public class JMQuery extends MySQLConnector{
 
     public int createUpdateSQL(String sql) throws JavaMySQLException {
         try {
+            if (sql == null || sql.equals("")) {
+                throw new JavaMySQLException("Null or Empty SQL");
+            }
             return start().executeUpdate(sql);
         } catch (SQLException e) {
             throw new JavaMySQLException(e.getMessage());
