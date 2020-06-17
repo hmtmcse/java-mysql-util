@@ -6,6 +6,7 @@ public class ConnectionCredential {
     public String username = "root";
     public String password = "";
     public String databaseName = "";
+    public String serverPort = "3306";
     public String connectionString;
     public String connectionExtension = "?useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private String driverPackage = "com.mysql.cj.jdbc.Driver";
@@ -41,7 +42,7 @@ public class ConnectionCredential {
         if (connectionString != null) {
             return connectionString;
         }
-        return "jdbc:mysql://" + hostname + "/" + databaseName + connectionExtension;
+        return "jdbc:mysql://" + hostname + ":" + serverPort + "/" + databaseName + connectionExtension;
     }
 
     public String getDriverPackage(){
